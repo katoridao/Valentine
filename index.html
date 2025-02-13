@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will you be my Valentine? 💖</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            background-color: #ffe6f2;
+            margin: 50px;
+            overflow: hidden;
+            position: relative;
+        }
+        h1 {
+            color: #ff4d79;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .btn {
+            font-size: 20px;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .yes {
+            background-color: #ff4d79;
+            color: white;
+        }
+        .no {
+            background-color: #ccc;
+            color: black;
+            position: absolute;
+        }
+        .hidden-message {
+            display: none;
+            font-size: 28px;
+            font-weight: bold;
+            color: #ff4d79;
+            margin-top: 20px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            animation: pop 0.5s ease-in-out;
+            position: relative;
+            z-index: 10;
+        }
+        @keyframes pop {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 24px;
+            animation: floatUp 6s linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Will you be my Valentine? 💕</h1>
+    <div class="container">
+        <button class="btn yes" onclick="showLove()">Yes 💖</button>
+        <button class="btn no" onmouseover="moveButton(this)">No 😭</button>
+    </div>
+    <p class="hidden-message" id="message">
+        I knew you would agree! ☺️<br>
+        Wishing you a Valentine's Day filled with joy and happiness! 💖 I hope every day with you is as sweet as today. I love you so much! 😘💞
+    </p>
+    <script>
+        function showLove() {
+            document.getElementById('message').style.display = 'block';
+            setInterval(() => {
+                for (let i = 0; i < 3; i++) { //muốn tăng số lượng trái tim bay lên thì thay số 3 thành số lớn hơn
+                    createHeart();
+                }
+            }, 300); //khoảng cách mỗi lần tạo ra trái tim
+        }
+        
+        function moveButton(button) {
+            const x = Math.random() * (window.innerWidth - button.offsetWidth);
+            const y = Math.random() * (window.innerHeight - button.offsetHeight);
+            button.style.position = 'absolute';
+            button.style.left = `${x}px`;
+            button.style.top = `${y}px`;
+        }
+        
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.classList.add('heart');
+            document.body.appendChild(heart);
+            
+            const x = Math.random() * window.innerWidth;
+            heart.style.left = `${x}px`;
+            heart.style.top = '100vh';
+            heart.style.fontSize = `${Math.random() * 20 + 20}px`;
+            
+            heart.animate([
+                { transform: 'translateY(0)', opacity: 1 },
+                { transform: 'translateY(-100vh)', opacity: 1 }
+            ], {
+                duration: 6000,
+                iterations: 1
+            });
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+    </script>
+</body>
+</html>
